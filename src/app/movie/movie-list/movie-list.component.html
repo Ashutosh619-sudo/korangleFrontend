@@ -11,46 +11,54 @@
         href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        *{
-            background-color: black;
-        }
-    </style>
+
     <title>Document</title>
 </head>
 
 <body>
-    <div class="mx-24 mt-16 mb-5 text-white font-bold text-4xl">
-        Netflex <span class="text-white font-thin">Dashboard</span>
+    <div class="mx-24 mt-16 mb-5 text-[#F91A2A] font-bold text-4xl">
+        Netflex <span class="text-black font-normal">Dashboard</span>
     </div>
-    <label for="movies" class="text-white ml-24 ">Sort by:</label>
-    <select (change)="changeSortBy($event)" class="mr-24 ml-2 mt-5 p-2 bg-black border rounded border-[#F91A2A] text-white text-sm" name="movies">
+    <label for="movies" class="text-black ml-24 ">Sort by:</label>
+    <select (change)="changeSortBy($event)" class="mr-24 ml-2 mt-5 p-2 bg-white border rounded border-[#F91A2A] text-black text-sm" name="movies">
         <option  value="Title">Title</option>
         <option value="Release Date">Release Date</option>
     </select>
-    <div class="mx-20 my-10">
+
+    <div *ngIf="movies?.length === 0">
+        <h1 class="mx-24 py-5">Add Movies To See Here</h1>
+    
+      </div>
+    <div class="mx-20 my-10" *ngFor="let movie of movies">
         <div class="grid lg:grid-cols-4" >
             
-            <ng-container *ngFor="let movie of movies">
-            <div class="max-w-xs mx-4 mb-2 rounded-lg shadow-lg" >
+           
+            <div class="max-w-xs mx-4 mb-2 rounded-lg shadow-lg hover:shadow-xl cursor-pointer" >
                 <img class="w-full h-48 rounded" src="assets/movie.jpg" alt="product" />
                 <div class="px-2 py-4">
-                    <h4 class="mb-3 text-xl font-bold tracking-tight text-white">
+                    <h4 class="mb-3 text-xl font-semibold tracking-tight text-black">
                         {{movie.title}}
                     </h4>
-                    <p class="my-2  text-sm text-[#707070]">{{movie.release_date}}</p>
-                    <p class="text-sm text-white">
+                    <p class="text-sm text-[#707070]">
                         {{movie.description}}
                     </p>
+                    <p class="my-2  text-sm text-[#707070]">Release Date: {{movie.release_date}}</p>
+                    
                     <p class="my-2 text-sm text-[#707070]">Number of Actors: {{movie.no_of_actors}}</p>
-                    <div class="px-5 py-3 my-4 text-white text-xs border border-[#F91A2A] w-32">
+                    <div class="px-5 py-3 my-4 text-black text-xs border border-[#F91A2A] w-32">
                         <a routerLink="/movie/{{movie.id}}/actors">
                         SHOW ACTORS
                     </a>
+                    
+                    </div>
+                    <span>Votes: {{movie.votes}}</span>
+                    <div class="my-4">
+                        <span (click)="upVote(movie.id)" class="px-5 py-2 my-4 text-black text-xs border border-blue w-32"> Upvote</span>
+                        <span (click)="downVote(movie.id)" class="px-5 py-2 my-4 mx-2 text-black text-xs border border-blue w-32">Downvote</span>
                     </div>
                 </div>
             </div>
-        </ng-container>
+        
 
         </div>
     </div>

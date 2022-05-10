@@ -41,8 +41,20 @@ export class MovieListComponent implements OnInit {
     this.getMovies()
   }
 
+  upVote(id:number){
+    this.httpClient.post<any>(`http://localhost:8000/movie/upvote`,{'id':id}).subscribe(response=>{
+      this.getMovies()
+    })
+    
+  }
+  downVote(id:number){
+    this.httpClient.post<any>(`http://localhost:8000/movie/downvote`,{'id':id}).subscribe(response=>{
+      this.getMovies()
+    })
+    
+  }
+
   getMovies(){
-    console.log(`http://localhost:8000/movie/?${this.sortBy}=1`)
     this.httpClient.get<any>(`http://localhost:8000/movie/?${this.sortBy}=1`).subscribe(
       response => {
         console.log(response)
