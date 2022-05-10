@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        *{
+            background-color: black;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="mx-24 mt-16 mb-5 text-white font-bold text-4xl">
+        Netflex <span class="text-white font-thin">Dashboard</span>
+    </div>
+    <label for="movies" class="text-white ml-24 ">Sort by:</label>
+    <select (change)="changeSortBy($event)" class="mr-24 ml-2 mt-5 p-2 bg-black border rounded border-[#F91A2A] text-white text-sm" name="movies">
+        <option  value="Title">Title</option>
+        <option value="Release Date">Release Date</option>
+    </select>
+    <div class="mx-20 my-10">
+        <div class="grid lg:grid-cols-4" >
+            
+            <ng-container *ngFor="let movie of movies">
+            <div class="max-w-xs mx-4 mb-2 rounded-lg shadow-lg" >
+                <img class="w-full h-48 rounded" src="assets/movie.jpg" alt="product" />
+                <div class="px-2 py-4">
+                    <h4 class="mb-3 text-xl font-bold tracking-tight text-white">
+                        {{movie.title}}
+                    </h4>
+                    <p class="my-2  text-sm text-[#707070]">{{movie.release_date}}</p>
+                    <p class="text-sm text-white">
+                        {{movie.description}}
+                    </p>
+                    <p class="my-2 text-sm text-[#707070]">Number of Actors: {{movie.no_of_actors}}</p>
+                    <div class="px-5 py-3 my-4 text-white text-xs border border-[#F91A2A] w-32">
+                        <a routerLink="/movie/{{movie.id}}/actors">
+                        SHOW ACTORS
+                    </a>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+        </div>
+    </div>
+</body>
+
+</html>
